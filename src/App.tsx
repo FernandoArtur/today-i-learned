@@ -1,41 +1,57 @@
+import { useState } from "react";
 import type { Fact } from "./types";
-import NewItem from "./NewItem";
+import Header from "./components/Header";
+import FactList from "./components/FactList";
+
+const INITIAL_FACTS: Fact[] = [{
+  id: 1,
+  text: 'React foi criado pelo Facebook em 2013.',
+  source: 'https://react.dev',
+  category: 'technology',
+  votes_interesting: 23,
+  votes_mindblowing: 9,
+  votes_false: 1,
+  created_at: '2026-05-12T11:30:00-03:00'
+}, {
+  id: 2,
+  text: 'O cérebro humano tem aproximadamente 86 bilhões de neurônios',
+  source: 'https://www.ncbi.nlm.nih.gov/',
+  category: 'science',
+  votes_interesting: 41,
+  votes_mindblowing: 22,
+  votes_false: 0,
+  created_at: '2026-05-12T11:20:00-03:00'
+}, {
+  id: 3,
+  text: 'O Brasil é o maior produtor de café a mais de 150 anos',
+  source: 'https://www.embrapa.br/',
+  category: 'history',
+  votes_interesting: 18,
+  votes_mindblowing: 5,
+  votes_false: 5,
+  created_at: '2026-05-12T11:20:00-03:00'
+}];
 
 export default function App() {
-  const facts: Fact[] = [{
-    id: 1,
-    text: 'A Digital College tem o melhor curso de programação de Fortaleza',
-    source: 'https://meusonho.com',
-    category: 'Tecnologia',
-    votes_interesting: 15,
-    votes_mindblowing: 1,
-    votes_false: 0,
-    created_at: '2026-05-05'
-  }, {
-    id: 2,
-    text: 'Neymar é acusado de tentativa de homicidio estimulada por racismo contra pessoa negra e pobre.',
-    source: 'https://g1.com',
-    category: 'Esportes',
-    votes_interesting: 0,
-    votes_mindblowing: 0,
-    votes_false: 535,
-    created_at: '2026-05-04'
-  }, {
-    id: 3,
-    text: 'Virginia foi para balada com Zé Felipe e houve troca de afetos publicos.',
-    source: 'http://leodias.com',
-    category: 'Entretenimento',
-    votes_interesting: 2,
-    votes_mindblowing: 3,
-    votes_false: 5,
-    created_at: '2026-04-01'
-  }];
+  const [facts, setFacts] = useState<Fact[]>(INITIAL_FACTS);
+  const [currentCategory, setCurrentCategory] = useState<string>('all');
+  const [showForm, setShowForm] = useState<boolean>(false);
+
+  const displayedFacts = currentCategory === 'all'
+    ? facts
+    : facts.filter(facts => facts.category === currentCategory);
+
+  function handleToggleForm() {
+    setShowForm(show => !show);
+  };
 
   return (
     <>
-      {facts.map(fact => <NewItem key={fact.id} fact={fact.text} category={fact.category} 
-      votes_interesting={fact.votes_interesting} votes_mindblowing={fact.votes_mindblowing} 
-      votes_false={fact.votes_false} source={fact.source}/>)}
+      <Header showForm={showForm} onToggleForm={handleToggleForm}/>
+      { showForm && <p>Aqui conterá um formulario</p>}
+      <main>
+        <FactList facts={displayedFacts} />
+      </main>
     </>
-  );
-};
+  )
+}
