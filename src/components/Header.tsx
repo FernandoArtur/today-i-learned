@@ -6,11 +6,14 @@ interface HeaderProps {
 export default function Header( { showForm, onToggleForm } ) 
 {
     return (
-        <>
-          <h1>today i learned</h1>
-          <button onClick={onToggleForm}>
-            { showForm ? 'Fechar' : 'Novo Fato' }
-          </button>
-        </>
+        <header>
+          <div>
+            <span>🧠</span>
+            <h1>hoje eu aprendi</h1>
+            <button onClick={onToggleForm}>
+              { showForm ? 'Fechar' : 'Novo Fato' }
+            </button>
+          </div>
+        </header>
     )
 };
