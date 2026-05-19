@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Fact } from "./types";
 import Header from "./components/Header";
 import FactList from "./components/FactList";
+import CategoryFilter from "./components/CategoryFilter";
 
 const INITIAL_FACTS: Fact[] = [{
   id: 1,
@@ -45,11 +46,22 @@ export default function App() {
     setShowForm(show => !show);
   };
 
+  function handleSelectCategory(category: string) {
+    setCurrentCategory(category);
+  };
+
   return (
     <>
-      <Header showForm={showForm} onToggleForm={handleToggleForm}/>
+      <Header 
+        showForm={showForm} 
+        onToggleForm={handleToggleForm}
+        />
       { showForm && <p>Aqui conterá um formulario</p>}
       <main>
+        <CategoryFilter 
+          currentCategory={currentCategory}
+          onSelectCategory={handleSelectCategory}
+        />
         <FactList facts={displayedFacts} />
       </main>
     </>
