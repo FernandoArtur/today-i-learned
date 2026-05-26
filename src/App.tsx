@@ -3,7 +3,7 @@ import type { Fact } from "./types";
 import Header from "./components/Header";
 import FactList from "./components/FactList";
 import CategoryFilter from "./components/CategoryFilter";
-import NewFactForm from "./components/NewFactFm";
+import NewFactForm from "./components/NewFactForm";
 
 const INITIAL_FACTS: Fact[] = [{
   id: 1,
