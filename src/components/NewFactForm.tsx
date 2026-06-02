@@ -15,6 +15,12 @@ export default function NewFactForm({ inputRef }: NewFactFormProps) {
 
     function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        if(text.length === 0) {
+          console.log('Precisa ser preenchido');
+          return;
+        }
+
         console.log({
             text,
             source,
